@@ -1,0 +1,43 @@
+.product_form_area {
+  border-top: 1px solid #DDD;
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-family: Avenir , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "メイリオ" , "Meiryo UI" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 12px;
+  letter-spacing: 0.025em;
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-size: 1.25em;
+  line-height: 1.75;
+  text-align: left;
+  margin-left: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 1.5em;
+}
+
+.button-click {
+  border: 1px solid #332821;
+  color: #332821;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px #332821;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: #FBFBFB;
+}

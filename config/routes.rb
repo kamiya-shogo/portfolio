@@ -7,5 +7,18 @@ Rails.application.routes.draw do
   post   '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :users
+  resources :users do
+    member do
+      get 'edit_basic_info'
+      patch 'update_basic_info'
+    end
+    resources :tasks do
+      member do
+        get 'edit_add_cart'
+        patch 'update_add_cart'
+        get 'edit_order'
+        patch 'update_order'
+      end
+    end
+  end
 end

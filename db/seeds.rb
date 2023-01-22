@@ -15,3 +15,15 @@ User.create!(name: name,
     password: password,
     password_confirmation: password)
 end
+
+puts "Users Created"
+
+admin_user = User.first
+
+2.times do |n|
+  task_name = "タスク#{n + 1}"
+  description = "タスク詳細#{n + 1}"
+  admin_user.tasks.create!(name: task_name, description: description)
+end
+
+puts "Tasks Created"

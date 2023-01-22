@@ -1,7 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* universal */
+/* 共通 */
 
 body {
   padding-top: 60px;
@@ -23,7 +23,15 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* typography */
+.label-form {
+  margin-top: 5px;
+}
+
+.btn-form {
+  margin-top: 10px;
+}
+
+/* タイポグラフィ */
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -50,25 +58,47 @@ p {
   line-height: 1.7em;
 }
 
-/* header */
+/* ヘッダー */
+
+#header {
+  background-color: black;
+}
 
 #logo {
   float: left;
   margin-right: 10px;
-  font-size: 1.7em;
+  font-size: 1.8em;
   color: #fff;
-  text-transform: uppercase;
+  text-transform: none;
+  font-family: adobe-garamond-pro, serif;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
 }
 
 #logo:hover {
-  color: #fff;
+  color: silver;
   text-decoration: none;
 }
 
-/* debug */
+li .header-list {
+  color: #fff !important;
+  font-weight: bold;
+  &:hover {
+    color: silver !important;
+  }
+}
+
+#dropdown-title {
+  background-color: black;
+}
+
+li .dropdown-header{
+  background-color: #DDDDDD;
+  font-weight: bold;
+}
+
+/* デバッグウインドウ */
 
 .debug_dump {
   clear: both;
@@ -80,7 +110,7 @@ p {
   box-sizing:         border-box;
 }
 
-/* error_messages */
+/* エラーメッセージ */
 
 #error_explanation {
   color: red;
