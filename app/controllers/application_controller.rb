@@ -1,6 +1,22 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
+  
+  def set_user_id
+    @user = User.find(params[:user_id])
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def set_task_id
+    @task = Task.find(params[:task_id])
+  end
+
+  def set_task_content
+    @task_content = TaskContent.find(params[:id])
+  end
 
   def set_item
     @items = [
@@ -10,6 +26,7 @@ class ApplicationController < ActionController::Base
       "400g　/　2040円　（15%割引）",
     ]
   end
+
   def set_roast
     @roasts = [
       "焙煎士にお任せ",
@@ -18,6 +35,7 @@ class ApplicationController < ActionController::Base
       "深煎り（苦味と香ばしさ）",
     ]
   end
+  
   def set_grind
     @grinds = [
       "豆のまま",

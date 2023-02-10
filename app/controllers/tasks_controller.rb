@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_user
-  before_action :set_task, only: %i(show edit update destroy edit_add_cart update_add_cart)
-  before_action :set_item, only: %i(edit_add_cart)
-  before_action :set_roast, only: %i(edit_add_cart)
-  before_action :set_grind, only: %i(edit_add_cart)
+  before_action :set_user_id
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :edit_add_cart, :update_add_cart, :edit_cart, :order_edit, :order_update, :order_delete]
+  # before_action :set_task_id, only: [:index]
+  before_action :set_item, only: %i(edit_add_cart order_edit)
+  before_action :set_roast, only: %i(edit_add_cart order_edit)
+  before_action :set_grind, only: %i(edit_add_cart order_edit)
 
   
   
@@ -31,7 +32,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       flash[:success] = "更新しました。"
-      redirect_to user_task_url(@user,@task)
+      redirect_to user_tasks_path(@user,@task)
     else
       render :edit
     end
@@ -43,28 +44,26 @@ class TasksController < ApplicationController
     redirect_to user_tasks_url(@user)
   end
 
+  # カートへ追加
   def edit_add_cart
   end
 
   def update_add_cart
+    ActiveRecord::Base.transaction do # トランザクションを開始します。
+      if @task.update!(cart_params)
+        flash[:success] = "カートに追加しました！"
+      end
+    end
+    redirect_to edit_order_user_path(@user) 
+  rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
+    flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
+    redirect_to user_tasks_url(@user)
   end
+
   
   private
     
     def task_params
       params.require(:task).permit(:name, :description)
-    end
-
-    #注文をカートに追加
-    def cart_params
-      params.require(:task).permit(:edit_item, :edit_roast, :edit_grind, :add_cart_status)
-    end
-    
-    def set_user
-      @user = User.find(params[:user_id])
-    end
-
-    def set_task
-      @task = Task.find(params[:id])
     end
 end

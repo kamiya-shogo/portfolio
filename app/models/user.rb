@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :tasks, dependent: :destroy
+  has_many :tasks
+  has_many :task_contents
   # 「remember_token」という仮想の属性を作成します。
   attr_accessor :remember_token
   before_save { self.email = email.downcase }

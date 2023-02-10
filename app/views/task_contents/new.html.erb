@@ -11,27 +11,27 @@
       <p><%= "#{@task.name}" %></p>
     </div>
   </div>
-    <%= form_with(model: @task, url: update_add_cart_user_task_path(@user, @task), local: true) do |f| %>
+    <%= form_with(model: @task_content, url: user_task_task_contents_path(@user), local: true) do |f| %>
       <div class="product_form_area">
         <h3>グラム数：</h3>
         <div class="item-name">
-          <%= f.select :edit_item, @items, {prompt: "選択してください"}, required: true, class: "form-control" %>  
+          <%= f.select :edit_item, @items, {prompt: "選択してください"}, required: true, class: "form-control" %>
         </div>
       </div>
       <div class="product_form_area">
         <h3>焙煎度合い：</h3>
         <div class="item-name">
-          <%= f.select :edit_roast, @roasts, {prompt: "選択してください"}, required: true, class: "form-control" %>  
+          <%= f.select :edit_roast, @roasts, {prompt: "選択してください"}, required: true, class: "form-control" %>
         </div>
       </div>
       <div class="product_form_area">
         <h3>挽き方：</h3>
         <div class="item-name">
-          <%= f.select :edit_grind, @grinds, {prompt: "選択してください"}, required: true, class: "form-control" %>  
+          <%= f.select :edit_grind, @grinds, {prompt: "選択してください"}, required: true, class: "form-control" %>
         </div>
       </div>
       <div class="center">
         <%= f.submit "カートに追加", class: "btn btn-primary btn-block" %>
       </div>
-    <% end %>         
+    <% end %>
 </div>

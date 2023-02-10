@@ -1,0 +1,64 @@
+<% provide(:title, @user.name) %>
+
+<div class="row">
+  <div class="section_title">
+      <h2>注文一覧</h2>
+  </div>
+  
+  <div class="order_data preview_data">
+    <%= form_with(model: @user, url: update_order_user_path(@user), local: true, method: :patch) do |f| %>
+      <table class="table table-bordered table-condensed" id="table-tasks">
+        <tbody>
+          <tr>
+            <th>注文日</th>
+            <th>商品名</th>
+            <th>商品情報</th>
+            <th>価格</th>
+          </tr>
+          <% unless @orders_sum  == 0 %>
+            <% @orders.each do |order| %>
+              <tr>
+                <td class="cell_data item_name" rowspan="3">
+                  <%= l(order.updated_at, format: :short) %>
+                </td>
+                <td class="cell_data item_name" rowspan="3">
+                  <%= order.name %>
+                </td>
+                <td class="cell_data_item_description">
+                  <span class="">グラム数：</span>
+                  <%= order.edit_item %>
+                </td>
+                
+                <% if    %>
+                  <td class="cell_data price" rowspan="3">
+                    <span class="price">640円</span>
+                  </td>
+                <% end %>
+                
+
+              </tr>
+              <tr>
+                <td class="cell_data_item_description">
+                  <span class="">焙煎度合い：</span>
+                  <%= order.edit_roast %>
+                </td>
+              </tr>
+              <tr>
+                <td class="cell_data_item_description">
+                  <span class="">挽き方：</span>
+                  <%= order.edit_grind %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td class="empty_msg_box"  colspan="4">
+                注文はありません。
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+<div>

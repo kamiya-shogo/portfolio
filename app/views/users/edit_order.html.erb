@@ -1,0 +1,68 @@
+<% provide(:title, @user.name) %>
+
+<div class="row">
+  <div class="section_title">
+      <h2>現在のカートの中身</h2>
+  </div>
+  
+  <div class="cart_data preview_data">
+    <%= form_with(model: @user, url: update_order_user_path(@user), local: true, method: :patch) do |f| %>
+      <table class="table table-bordered table-condensed" id="table-tasks">
+        <%= f.hidden_field :edit_order_status, value: "申請中" %>
+          <tbody>
+            <tr>
+              <th colspan="1">商品名</th>
+              <th>商品情報</th>
+              <th>価格</th>
+              <th></th>
+            </tr>
+            <% unless @carts_sum  == 0 %>
+              <% @carts.each do |cart| %>
+                <tr>
+                  <td class="cell_data item_name" rowspan="3">
+                    <%= cart.name %>
+                  </td>
+                    <td class="cell_data_item_description">
+                      <span class="">グラム数：</span>
+                    <%= cart.edit_item %>
+                  </td>
+                  <td class="cell_data price" rowspan="3">
+                    <span class="price">640円</span>
+                  </td>
+                  <td class="cell_data" rowspan="3">
+                    <%= link_to "編集", edit_user_task_task_content_path(@user, task_id: cart.task_id, id: cart.id), class: "btn btn-success" %><br>
+                    <%= link_to "削除", user_task_task_content_path(@user, task_id: cart.task_id, id: cart.id), method: :delete,
+                    data: { confirm: "を削除します。よろしいですか？" }, class: "btn btn-danger" %>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell_data_item_description">
+                    <span class="">焙煎度合い：</span>
+                    <%= cart.edit_roast %>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell_data_item_description">
+                    <span class="">挽き方：</span>
+                    <%= cart.edit_grind %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td class="empty_msg_box"  colspan="4">
+                  カートは空です。
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+        <% unless @carts_sum  == 0 %>
+          <div class="center">
+            <%= f.submit "注文する", class: "btn btn-primary btn-block" %>
+          </div>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+<div>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_order, :update_order, :order_index, :order_show]
+  before_action :set_task_content, only: []
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
       flash[:success] = "ユーザー情報を更新しました。"
       redirect_to @user
     else
-      render :edit      
+      render :edit
     end
   end
 
@@ -44,10 +45,39 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def edit_order
+    @carts = TaskContent.where(user_id: current_user.id, add_cart_status: "申請中")
+    @carts_sum = TaskContent.where(user_id: current_user.id, add_cart_status: "申請中").count
+  end
+
+  def update_order
+    task_contents = @user.task_contents
+    task_contents.each do |item|
+      item.add_cart_status = nil
+      item.update(order_params)
+    end
+    flash[:success] = "注文しました。"
+    redirect_to order_index_user_path(@user)
+  end
+
+  def order_index
+    @orders = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").order("created_at ASC")
+    @orders_sum = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").count
+  end
+
+  def order_show
+  end
+
+
   private
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    #商品を注文
+    def order_params
+      params.require(:user).permit(:edit_order_status)
     end
 
     # beforeフィルター

@@ -23,12 +23,17 @@ p {
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  font-size: 1.25em;
+  font-size: 1.8em;
   line-height: 1.75;
-  text-align: left;
-  margin-left: 1.5em;
-  margin-bottom: 1.5em;
-  margin-top: 1.5em;
+  text-align: center;
+  // margin-left: 1.5em;
+  margin-bottom: 2em;
+  // margin-top: 1.5em;
+  font-weight: bold;
+}
+
+span {
+  font-weight: bold;
 }
 
 .button-click {
@@ -41,3 +46,31 @@ p {
   -moz-border-radius: 5px;
   background: #FBFBFB;
 }
+
+/* カートページ */
+.section_title h2 {
+  color: #332821;
+  background-color: #FFFFFF;
+  border: 1px solid #d6d6d6;
+  padding: 10px;
+  // font-size: 108%;
+
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* ユーザー勤怠情報テーブル */
+
+#table-tasks {
+  th {
+    vertical-align: middle;
+    text-align: center;
+    background-color: #F5F5F5;
+  }
+  td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
