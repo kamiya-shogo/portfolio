@@ -27,12 +27,14 @@
                     <%= cart.edit_item %>
                   </td>
                   <td class="cell_data price" rowspan="3">
-                    <span class="price">640円</span>
+                    <span class="price">
+                      <%= cart.price %>円
+                    </span>
                   </td>
                   <td class="cell_data" rowspan="3">
-                    <%= link_to "編集", edit_user_task_task_content_path(@user, task_id: cart.task_id, id: cart.id), class: "btn btn-success" %><br>
+                    <%= link_to "編集", edit_user_task_task_content_path(@user, task_id: cart.task_id, id: cart.id), remote: true, class: "btn btn-success" %><br>
                     <%= link_to "削除", user_task_task_content_path(@user, task_id: cart.task_id, id: cart.id), method: :delete,
-                    data: { confirm: "を削除します。よろしいですか？" }, class: "btn btn-danger" %>
+                    data: { confirm: "削除します。よろしいですか？" }, class: "btn btn-danger" %>
                   </td>
                 </tr>
                 <tr>
@@ -57,12 +59,43 @@
             <% end %>
           </tbody>
       </table>
-        <% unless @carts_sum  == 0 %>
-          <div class="center">
-            <%= f.submit "注文する", class: "btn btn-primary btn-block" %>
+
+      <% unless @carts_sum  == 0 %>
+        <div class="cart_footer">
+          <div class="global_btn">
+            <%= link_to "買い物を続ける", user_tasks_path(@user), class: "btn btn_color_common btn_size_xlarge continueshoppinginput" %>
           </div>
-        <% end %>
+          <div class="global_btn">
+            <%= link_to "カートを空にする", delete_order_user_path(@user), method: :delete,
+            data: { confirm: "カートを空にします。よろしいですか？" },   class: "btn btn_color_common btn_size_xlarge continueshoppinginput" %>
+          </div>
+          <div class="col-sm-4 col-sm-offset-8 cart_price_box">
+            <table class="table price_box">
+                <tbody>
+                  <tr>
+                    <td class="text-right grand_total"><strong>合計金額（税込）:</strong></td>
+                    <% total = 0 %>
+                      <% @carts.each do |cart| %>
+                        <% total += cart.price %>
+                      <% end %>
+                      <% @user.sum_price = total %>
+                      <%= f.hidden_field :sum_price, value: @user.sum_price %>
+                      <td class="text-right grand_total">¥<%= total %></td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      <% end %>
+        
+      <% unless @carts_sum  == 0 %>
+        <div class="center">
+          <%= f.submit "注文する", class: "btn btn-primary btn-block" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
 <div>
+
+<div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

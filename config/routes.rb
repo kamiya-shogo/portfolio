@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   post   '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-
+  #管理者 注文一覧
+  get '/order_list_manager', to: 'task_contents#order_list_manager'
+  
   resources :users do
     member do
       get 'edit_basic_info'
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
       # カートを注文する
       get 'edit_order'
       patch 'update_order'
+      delete 'delete_order'
       # 注文一覧
       get 'order_index'
       get 'order_show'

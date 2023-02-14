@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_order, :update_order, :order_index, :order_show]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_order, :update_order, :delete_order, :order_index, :order_show]
   before_action :set_task_content, only: []
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page]) 
   end
 
   def show
@@ -60,12 +60,24 @@ class UsersController < ApplicationController
     redirect_to order_index_user_path(@user)
   end
 
+  def delete_order                        
+    task_contents = TaskContent.where(user_id: current_user.id, add_cart_status: "申請中")
+    task_contents.each do |item|
+      item.destroy
+    end
+    # task_contents.add_cart_status = nil
+    flash[:success] = "カートを空にしました。"
+    redirect_to edit_order_user_path(@user)
+  end
+
   def order_index
-    @orders = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").order("created_at ASC")
+    @orders = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").order("updated_at ASC")
     @orders_sum = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").count
   end
 
   def order_show
+    @lists = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").order("updated_at ASC")
+    @lists_sum = TaskContent.where(user_id: current_user.id, edit_order_status: "申請中").count
   end
 
 
@@ -77,7 +89,7 @@ class UsersController < ApplicationController
 
     #商品を注文
     def order_params
-      params.require(:user).permit(:edit_order_status)
+      params.require(:user).permit(:sum_price, :edit_order_status)
     end
 
     # beforeフィルター

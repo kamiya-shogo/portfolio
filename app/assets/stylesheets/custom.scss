@@ -60,6 +60,13 @@ p {
 
 /* ヘッダー */
 
+// #list-color {
+//   color: red !important;
+//   &:hover {
+//     color: silver !important;
+//   }
+//  }
+
 #header {
   background-color: black;
 }
@@ -97,6 +104,7 @@ li .dropdown-header{
   background-color: #DDDDDD;
   font-weight: bold;
 }
+
 
 /* デバッグウインドウ */
 

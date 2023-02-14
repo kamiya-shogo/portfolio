@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230129075457) do
+ActiveRecord::Schema.define(version: 20230210230209) do
 
   create_table "task_contents", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20230129075457) do
     t.integer "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_name"
+    t.integer "price"
+    t.integer "sum_price"
     t.index ["task_id"], name: "index_task_contents_on_task_id"
     t.index ["user_id"], name: "index_task_contents_on_user_id"
   end
@@ -34,6 +37,7 @@ ActiveRecord::Schema.define(version: 20230129075457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "add_cart_status"
+    t.integer "price"
     t.index ["user_id", "created_at"], name: "index_tasks_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
@@ -47,6 +51,7 @@ ActiveRecord::Schema.define(version: 20230129075457) do
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.integer "sum_price"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

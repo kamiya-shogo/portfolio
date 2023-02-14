@@ -1,0 +1,50 @@
+<% provide(:title, @user.name) %>
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section_title">
+            <h2>編集</h2>
+          </div>
+          <div class="product_form_area">
+            <h3>商品名：</h3>
+            <div class="item-name">
+              <p><%= "#{@task_content.name}" %></p>
+            </div>
+          </div>
+            <%= form_with(model: @task_content, url: user_task_task_content_path(@user, task_id: @task_content.task_id, id: @task_content.id), local: true, method: :patch) do |f| %>
+              <div class="product_form_area">
+                <h3>グラム数：</h3>
+                <div class="item-name">
+                  <%= f.select :edit_item, @items, {prompt: "選択してください"}, required: true, class: "form-control" %>  
+                </div>
+              </div>
+              <div class="product_form_area">
+                <h3>焙煎度合い：</h3>
+                <div class="item-name">
+                  <%= f.select :edit_roast, @roasts, {prompt: "選択してください"}, required: true, class: "form-control" %>  
+                </div>
+              </div>
+              <div class="product_form_area">
+                <h3>挽き方：</h3>
+                <div class="item-name">
+                  <%= f.select :edit_grind, @grinds, {prompt: "選択してください"}, required: true, class: "form-control" %>  
+                </div>
+              </div>
+              <div class="center">
+                <%= f.submit "更新する", class: "btn btn-primary btn-block" %>
+                <%= link_to "キャンセル", edit_order_user_path(@user), class: "btn btntextchange btn-default btn-form btn-block" %>
+              </div>
+            <% end %>         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

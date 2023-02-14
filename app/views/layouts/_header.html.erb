@@ -5,11 +5,15 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "トップ", root_path , class: "header-list" %></li>
         <% if logged_in? %>
-          <% if current_user.admin? %>
-            <li><%= link_to "利用者一覧", users_path, class: "header-list" %></li>
-            <li><%= link_to "新規作成", new_user_task_path(current_user) , class: "header-list" %></li>
-          <% end %>
             <li><%= link_to "コーヒー豆一覧", user_tasks_path(current_user), class: "header-list" %></li>
+              <%# <% lists_sum = TaskContent.where(edit_order_status: "申請中").count %>
+              <%# <% if current_user.admin? && lists_sum > 0 %> %> %>
+                <%# <li><%= link_to "注文一覧", order_list_manager_path(current_user), class: "header-list", id: "list-color"</li> %>
+              <%# <% else %>
+            <% if current_user.admin? %>
+                <li><%= link_to "注文一覧", order_list_manager_path(current_user), class: "header-list" %></li>
+            <% end %>
+              <%# <% end %> %>
           <% unless current_user.admin? %>
             <li><%= link_to "カート", edit_order_user_path(current_user), class: "header-list" %></li>
           <% end %>
@@ -23,7 +27,7 @@
               <li><%= link_to "設定", edit_user_path(current_user) %></li>
               <li class="dropdown-header">タスク</li>
                 <% if current_user.admin? %>
-                  <li><%= link_to "注文一覧", order_index_user_path(current_user) %></li>
+                  <li><%= link_to "利用者一覧", users_path %></li>
                 <% else %>
                   <li><%= link_to "注文一覧", order_index_user_path(current_user) %></li>
                 <% end %>

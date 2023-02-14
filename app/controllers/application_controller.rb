@@ -20,10 +20,10 @@ class ApplicationController < ActionController::Base
 
   def set_item
     @items = [
-      "100g　/　600円",
-      "200g　/　1140円　（5%割引）",
-      "300g　/　1620円　（10%割引）",
-      "400g　/　2040円　（15%割引）",
+      "100g　/　#{item_price(@task.price,"100g")}円",
+      "200g　/　#{item_price(@task.price,"200g")}円　（5割引）",
+      "300g　/　#{item_price(@task.price,"300g")}円　（10割引）",
+      "400g　/　#{item_price(@task.price,"400g")}円　（15割引）",
     ]
   end
 
@@ -43,5 +43,28 @@ class ApplicationController < ActionController::Base
       "中挽き",
       "細挽き",
     ]
+  end
+
+  # コーヒー豆の個数計算
+  def item_price(price,gram)
+    case gram
+    when "100g"
+      format("%.0f", price*1)
+    when "200g"
+      format("%.0f", (price*2)*0.95)
+    when "300g"
+      format("%.0f", (price*3)*0.9)
+    when "400g"
+      format("%.0f",(price*4)*0.85 )
+    end
+    # if gram == "100g"
+    #   format("%.0f", price*1)
+    # elsif gram == "200g"
+    #   format("%.0f", (price*2)*0.95)
+    # elsif gram == "300g"
+    #   format("%.0f", (price*3)*0.9)
+    # else gram == "400g"
+    #   format("%.0f",(price*4)*0.85 )
+    # end
   end
 end   

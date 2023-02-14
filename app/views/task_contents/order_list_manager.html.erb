@@ -1,0 +1,42 @@
+<% provide(:title, '注文一覧') %>
+
+<div class="row">
+  <div class="section_title">
+    <h2>注文一覧</h2>
+  </div>
+
+  <div class="order_data preview_data">
+    <table class="table table-bordered table-condensed" id="table-tasks">
+      <tbody>
+        <tr>
+          <th>注文日</th>
+          <th>名前</th>
+          <th>価格</th>
+        </tr>
+        <% unless @list_sum == 0 %>
+          <%# <% @lists.group_by(&:updated_at).uniq.each do |order_date, list| %>
+          <% @lists.each do |list| %>
+            <tr>
+              <td class="cell_data item_name" ">
+                <%= link_to l(list.updated_at, format: :short), order_show_user_path(id: list.user_id) %>
+              </td>
+              <td class="cell_data item_name" ">
+                <%= list.user_name %>
+              </td>
+              <td class="cell_data price" ">
+                <%= list.sum_price %>円
+                <%# <%= list.sum(&:price) %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td class="empty_msg_box" colspan="4">
+              注文はありません。
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
